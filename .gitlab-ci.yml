@@ -7,8 +7,15 @@ variables:
 before_script:
   - apt-get update -y
   - apt-get upgrade -y
+  - apt-get install libglib2.0-0 -y
+  - apt-get install libpango-1.0-0 -y
   - apt-get install ttf-liberation -y
+  - apt-get install libpangocairo-1.0-0 -y
+  - apt-get install libcairo2 -y
+  - apt-get install libjpeg62 -y
+  - apt-get install libpng16-16 -y
   - raco pkg install --deps search-auto plot
+  - fc-list
 
 
 pages:
