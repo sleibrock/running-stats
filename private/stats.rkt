@@ -63,6 +63,7 @@
   (define pairs (enumerate distances))
 
 
+  (plot-font-family 'system)
   (displayln (format "Font: ~a" (plot-font-family)))
   
   (displayln "Creating graph")

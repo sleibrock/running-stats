@@ -70,7 +70,6 @@ of how many miles were \"ran\".
         (h2 "Technical")
         (p ,TECHNICAL)
 
-
         (hr)
         (h2 "Table of Data")
         (table
