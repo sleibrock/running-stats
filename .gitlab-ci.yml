@@ -5,6 +5,9 @@ variables:
 
 
 before_script:
+  - apt-get update -y
+  - apt-get upgrade -y
+  - apt-get install ttf-liberation -y
   - raco pkg install --deps search-auto plot
 
 
