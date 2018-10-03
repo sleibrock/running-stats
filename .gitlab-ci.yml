@@ -7,7 +7,7 @@ variables:
 pages:
   stage: deploy
   script:
-  - make build_pages
+  - make pages
   artifacts:
     paths:
     - public
