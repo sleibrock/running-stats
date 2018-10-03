@@ -5,7 +5,7 @@ variables:
 
 
 before_script:
-  - raco pkg install plot
+  - raco pkg install plot plot-lib plot-gui-lib plot-doc
 
 
 pages:
