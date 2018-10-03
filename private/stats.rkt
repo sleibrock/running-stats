@@ -4,11 +4,6 @@
          "utils.rkt"
          "structs.rkt")
 
-; toggle plotting in a new window separate from DrRacket
-; might not even be needed for the web publishing part
-(plot-new-window? #t)
-
-
 (provide plot-month
          plot-lifetime
          pie-chart-preference
