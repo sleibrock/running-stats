@@ -1,6 +1,6 @@
 #lang racket/base
 
-(require plot
+(require plot/no-gui
          "utils.rkt"
          "structs.rkt")
 
