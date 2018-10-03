@@ -1,4 +1,4 @@
-image: jackfirth/racket
+image: jackfirth/racket:7.0
 
 variables:
   LC_ALL: C.UTF-8
