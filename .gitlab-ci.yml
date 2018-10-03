@@ -4,6 +4,10 @@ variables:
   LC_ALL: C.UTF-8
 
 
+before_script:
+  - raco pkg install plot
+
+
 pages:
   stage: deploy
   script:
