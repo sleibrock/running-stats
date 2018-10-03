@@ -1,0 +1,21 @@
+image: jackfirth/racket
+
+variables:
+  LC_ALL: C.UTF-8
+
+
+
+test:
+  stage: test
+  script:
+  - raco test -x
+
+pages:
+  stage: deploy
+  script:
+  - make build_pages
+  artifacts:
+    paths:
+    - public
+  only:
+  - master

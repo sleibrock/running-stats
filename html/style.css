@@ -1,0 +1,33 @@
+
+body {
+    background-color: #eee;
+    width: 100%;
+    font-family: Arial;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: Helvetica;
+}
+
+p {
+    line-height: 1.6;
+}
+
+article {
+    background-color: #fff;
+    width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+footer {
+       width: 400px;
+       margin: 0 auto;
+       padding: 20px;
+       background-color: #efefef;
+}
+
+
+.graph {
+    padding: 10px;
+}

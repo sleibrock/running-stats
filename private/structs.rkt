@@ -6,25 +6,27 @@
 
 (require "utils.rkt")
 
-(provide run
-         month
-         (struct-out month-datum)
-         (struct-out run-datum))
+(provide r
+         m
+         (struct-out month)
+         (struct-out run))
 
 
-(struct month-datum  (name datum))
-(struct run-datum    (len where))
+(struct month  (name datum))
+(struct run   (dist dur day where))
 
 
 ; month-datum init wrapper
-(define (month name run-data)
-  (if (not (all? (filter run-datum? run-data)))
+(define (m name run-data)
+  (if (not (all? (filter run? run-data)))
       (error (format "Invalid rundata list for ~a" name))
-      (month-datum name run-data)))
+      (month name run-data)))
 
 ; run-datum init wrapper
-(define (run len where)
-  (run-datum len where))
+(define (r dist dur day where)
+  (if (not (and (number? dist) (number? dur) (string? day) (symbol? where)))
+      (error "Run data not given a number and a symbol")
+      (run dist dur day where)))
 
 
 ; end

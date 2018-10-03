@@ -13,24 +13,33 @@ Mostly everything revolves around a struct `rundatum`
 |#
 
 ; import everything needed
-(require "private/structs.rkt")
+(require racket/cmdline
+         "private/structs.rkt"
+         "private/stats.rkt"
+         "private/html.rkt"
+         )
 
 
 
 (define DATA
   (list
-   (month "oct18" (list
-                       (run 0.0 'gym)
-                       (run 1.0 'track)
-                       (run 2.0 'outside)
-                       ))
-   (month "nov18" (list
-                        (run 0.0 'gym)
-                        ))))
+   (m "oct18" (list
+               (r 0.69   950   "2018-10-01" 'gym)
+               (r 0.60   1000  "2018-10-02" 'track)
+               ))
+;   (m "nov18" (list
+;                   (r 0.0 0 "" 'gym)
+;                        ))
+   ))
 
 
 
 (module+ main
-  (displayln "Nothing here yet lol"))
+  (command-line
+   #:program "runstats"
+   #:args (command)
+   (cond ([string=? command "build_pages"] (build-pages-directory DATA))
+         ([string=? command "text"]        (print-text-stats DATA))
+         (else (displayln "LOL")))))
 
 ; end
