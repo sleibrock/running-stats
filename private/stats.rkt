@@ -15,8 +15,18 @@
          (struct-out stats)
          )
 
-
-(struct stats (sum avg cnt regression))
+; A struct used to name and simplify access
+; to a handful of different data attributes
+(struct stats (total-runs
+               total-distance
+               avg-distance
+               avg-time
+               avg-place
+               dist-stdev
+               dist-variance
+               regression
+               distance-list
+               ))
 
 
 (define (plot-month) 0)
@@ -39,36 +49,34 @@
   (define distances (map run-dist runs))
   (define-values (a len) (avg-and-len (map run-dist runs)))
   (define summation (sum distances))
-  (stats summation a len 0.0)) 
-
-   
-  
-
+  (stats len 
+         summation
+         a
+         0.0       ; fix time average
+         'outside  ; fix place average
+         0.0       ; fix stdev and variance
+         0.0       ; <- variance is (stdev^2)
+         0.0       ; calculate least squares regression
+         distances))
+         
 
 ; A bare-bones print-stats function
 (define (print-text-stats data)
   (define the-stats (data->stats data))
-  (displayln (format "Total number of runs: ~a" (stats-cnt the-stats)))
-  (displayln (format "Total distance ran: ~a" (stats-sum the-stats)))
-  (displayln (format "Average distance ran: ~a" (stats-avg the-stats)))
+  (displayln (format "Total number of runs: ~a" (stats-total-runs the-stats)))
+  (displayln (format "Total distance ran: ~a" (stats-total-distance the-stats)))
+  (displayln (format "Average distance ran: ~a" (stats-avg-distance the-stats)))
   (displayln (format "Regression: ~a (not impl)" (stats-regression the-stats))))
 
 
-
-
-(define (make-graph data fpath)
-  (define the-stats (data->stats data))
-  (define runs (yank-all-run-data data))
-  (define distances (map run-dist runs))
-  (define pairs (enumerate distances))
-
-
-  (plot-font-family 'system)
-  (displayln (format "Font: ~a" (plot-font-family)))
-  
+(define (make-graph stat-data fpath)
   (displayln "Creating graph")
+  (plot-font-family 'system)
+  (plot-title "My Running Data")
 
+  ; enumerate my run distances with numbers for plotting
+  (define pairs (enumerate (stats-distance-list stat-data)))
   (define graph (lines pairs))
-  (plot-file graph fpath 'png))
+  (plot-file graph fpath 'png #:x-label "day" #:y-label "distance (mi)"))
 
 ; end

@@ -1,12 +1,17 @@
+/* style the basic web page here */
 
 body {
-    background-color: #eee;
+    background-color: #dfdfdf;
     width: 100%;
     font-family: Arial;
 }
 
 h1, h2, h3, h4, h5 {
+    color: #444;
     font-family: Helvetica;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #444;
 }
 
 p {
@@ -14,20 +19,19 @@ p {
 }
 
 article {
-    background-color: #fff;
+    background-color: #fefefe;
     width: 600px;
     margin: 0 auto;
     padding: 30px;
 }
 
 footer {
-       width: 400px;
-       margin: 0 auto;
        padding: 20px;
-       background-color: #efefef;
 }
 
 
 .graph {
     padding: 10px;
 }
+
+/* end */

@@ -56,6 +56,7 @@ of how many miles were \"ran\".
     `(html
       (head
        (title "Steven's Running Stats")
+       (meta ((charset "utf-8")))
        (link ((rel "stylesheet") (type "text/css") (href ,STYLE-SHEET)))
        (script ((type "text/javascript") (src ,EXTRA-JS))))
       (body
@@ -66,11 +67,9 @@ of how many miles were \"ran\".
         (center
          (img ((class "graph") (src ,MAIN-GRAPH))))
          
-        (hr)
         (h2 "Technical")
         (p ,TECHNICAL)
 
-        (hr)
         (h2 "Table of Data")
         (table
          (tr (th "Name")           (th "Value"))
@@ -80,11 +79,14 @@ of how many miles were \"ran\".
          )
         
        )
-       (footer
-        (p "Steven Leibrock 2018 | "
-           (a ((href "https://github.com/sleibrock/running-stats")) "github")
-           " | "
-           (a ((href "https://gitlab.com/sleibrock/running-stats")) "gitlab")))))))
+       (center
+        (footer
+         (p
+          (a ((href "https://sleibrock.xyz")) "Steven Leibrock 2018")
+          " | "
+          (a ((href "https://github.com/sleibrock/running-stats")) "github")
+          " | "
+          (a ((href "https://gitlab.com/sleibrock/running-stats")) "gitlab"))))))))
   
 
 (define (create-index-page)
@@ -101,8 +103,7 @@ of how many miles were \"ran\".
               (define copy-path (build-path COPY-DIRECTORY f))
               (define target-path (build-path HTML-DIRECTORY f))
               (displayln (format "Copying ~a ..." (path->string copy-path)))
-              (unless (file-exists? target-path)
-                (copy-file copy-path target-path)))
+              (copy-file copy-path target-path #t))
             files)
   (displayln "Copied all files from /html to /public"))
 
@@ -116,10 +117,23 @@ of how many miles were \"ran\".
   (unless (directory-exists? HTML-DIRECTORY)
     (make-directory HTML-DIRECTORY))
 
-  (copy-files-from-src)           ; copy the template flies
-  (create-index-page)             ; generate the index.html
-  (make-graph data graph-path)    ; create the graph file
-  (displayln "lol"))
+  (define the-stats (data->stats data))
+
+
+  ; set some parameters for the index template
+  (TOTAL-RUNS      (number->string (stats-total-runs the-stats)))
+  (TOTAL-DISTANCE  (number->string (stats-total-distance the-stats)))
+  (AVG-DISTANCE    (number->string (stats-avg-distance the-stats)))
+  (AVG-TIME        (number->string (stats-avg-time  the-stats)))
+  (AVG-PLACE       "not implemented")
+  (STDEV           "0.0")
+  (VARIANCE        "0.0")
+  (REGRESSION      "0.0")
+
+  (copy-files-from-src)             ; copy the template flies
+  (create-index-page)               ; generate the index.html
+  (make-graph the-stats graph-path) ; create the graph file
+  (displayln "Built index.html successfully"))
 
 
 (module+ main
@@ -127,4 +141,3 @@ of how many miles were \"ran\".
 
 
 ; end
-

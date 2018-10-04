@@ -3,13 +3,7 @@
 #|
 My Running statistics
 
-
-Mostly everything revolves around a struct `rundatum`
-```
-(struct rundatum (len where))
-```
-
-
+Record all your data in here underneath the DATA var
 |#
 
 ; import everything needed
@@ -19,13 +13,17 @@ Mostly everything revolves around a struct `rundatum`
          "private/html.rkt"
          )
 
+; In case you want to import the data elsewhere, expose it
+(provide DATA)
 
 
+; All running data goes here
 (define DATA
   (list
    (m "oct18" (list
-               (r 0.69   950   "2018-10-01" 'gym)
+               (r 0.69    950  "2018-10-01" 'gym)
                (r 0.60   1000  "2018-10-02" 'track)
+               (r 0.30    700  "2018-10-03" 'outside)
                ))
 ;   (m "nov18" (list
 ;                   (r 0.0 0 "" 'gym)
@@ -33,7 +31,8 @@ Mostly everything revolves around a struct `rundatum`
    ))
 
 
-
+; Add a few basic entrypoint actions for the command line
+; Will be used to build the web pages for Gitlab
 (module+ main
   (command-line
    #:program "runstats"
