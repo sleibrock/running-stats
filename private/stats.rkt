@@ -74,9 +74,17 @@
   (plot-font-family 'system)
   (plot-title "My Running Data")
 
+  ; pass the param a tickset to use
+  (date-ticks-format #:formats '("~Y-~m-~d ~H:~M:~f"))
+  (plot-x-ticks (date-ticks))
+
   ; enumerate my run distances with numbers for plotting
   (define pairs (enumerate (stats-distance-list stat-data)))
   (define graph (lines pairs))
-  (plot-file graph fpath 'png #:x-label "day" #:y-label "distance (mi)"))
+  (plot-file graph
+             fpath
+             'png
+             #:x-label "day"
+             #:y-label "distance (mi)"))
 
 ; end

@@ -1,5 +1,10 @@
 #lang racket/base
 
+#|
+Main HTML building code
+Will build an index.html and fill a /public directory with files
+|#
+
 (require xml
          "stats.rkt"
          )
@@ -15,7 +20,6 @@
 (define EXTRA-JS       "extra.js")
 
 
-
 ; Templating parameters to adjust later
 (define TOTAL-RUNS     (make-parameter "0"))
 (define TOTAL-DISTANCE (make-parameter "0"))
@@ -25,8 +29,6 @@
 (define STDEV          (make-parameter "0"))
 (define VARIANCE       (make-parameter "0"))
 (define REGRESSION     (make-parameter "0"))
-
-
 
 
 (define INTRO "
@@ -45,7 +47,6 @@ which day, and so on and so forth. Sometimes I might break up my
 runs into run-walk alternations but I will do my best to keep track
 of how many miles were \"ran\".
 ")
-
 
 
 ; Create a template function that will return an xexpr tree when called
@@ -77,7 +78,6 @@ of how many miles were \"ran\".
          (tr (td "Total Distance") (th ,(TOTAL-DISTANCE)))
          (tr (td "Avg Distance")   (th ,(AVG-DISTANCE)))
          )
-        
        )
        (center
         (footer
@@ -134,10 +134,5 @@ of how many miles were \"ran\".
   (create-index-page)               ; generate the index.html
   (make-graph the-stats graph-path) ; create the graph file
   (displayln "Built index.html successfully"))
-
-
-(module+ main
-  (build-pages-directory '()))
-
 
 ; end

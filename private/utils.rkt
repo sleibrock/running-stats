@@ -80,7 +80,7 @@ and portable across all other source files
     (if (empty? lst)
         acc
         (inner (cdr lst) (append acc `((,cnt ,(car lst)))) (+ cnt 1))))
-  (inner lst '() 0))
+  (inner lst '() 100))
     
   
 
