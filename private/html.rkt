@@ -76,8 +76,12 @@ of how many miles were \"ran\".
          (tr (th "Name")           (th "Value"))
          (tr (td "# Runs")         (th ,(TOTAL-RUNS)))
          (tr (td "Total Distance") (th ,(TOTAL-DISTANCE)))
-         (tr (td "Avg Distance")   (th ,(AVG-DISTANCE)))
-         )
+         (tr (td "Avg Distance")   (th ,(AVG-DISTANCE))))
+
+        (hr)
+
+        (center
+         (img ((src ""))))
        )
        (center
         (footer
