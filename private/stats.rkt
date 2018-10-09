@@ -4,14 +4,12 @@
          "utils.rkt"
          "structs.rkt")
 
-(provide plot-month
-         plot-lifetime
-         pie-chart-preference
-         data->stats
+(provide data->stats
          yank-all-run-data
          print-text-stats
-         make-graph
-
+         make-line-graph
+         make-monthly-graph
+         make-scatter-graph
          (struct-out stats)
          )
 
@@ -29,9 +27,8 @@
                ))
 
 
-(define (plot-month) 0)
-(define (plot-lifetime) 0)
-(define (pie-chart-preference) 0)
+(define GRAPH-WIDTH  400)
+(define GRAPH-HEIGHT 400)
 
 
 (define (yank-all-run-data data)
@@ -69,14 +66,10 @@
   (displayln (format "Regression: ~a (not impl)" (stats-regression the-stats))))
 
 
-(define (make-graph stat-data fpath)
-  (displayln "Creating graph")
-  (plot-font-family 'system)
-  (plot-title "My Running Data")
-
-  ; pass the param a tickset to use
-  (date-ticks-format #:formats '("~Y-~m-~d ~H:~M:~f"))
-  (plot-x-ticks (date-ticks))
+(define (make-line-graph stat-data fpath)
+  (displayln "Creating line graph...")
+  ;(plot-font-family 'system)
+  ;(plot-x-ticks no-ticks)
 
   ; enumerate my run distances with numbers for plotting
   (define pairs (enumerate (stats-distance-list stat-data)))
@@ -84,7 +77,62 @@
   (plot-file graph
              fpath
              'png
-             #:x-label "day"
-             #:y-label "distance (mi)"))
+             #:width GRAPH-WIDTH
+             #:height GRAPH-HEIGHT
+             #:title   "Steven's Running Stats"
+             #:x-label "days"
+             #:y-label "distance (miles)"))
+
+
+
+; use discrete-histogram to form a monthly distance graph
+(define (make-monthly-graph raw-data fpath)
+  (displayln "Creating monthly graph...")
+
+  ; TODO: much later
+  ; we might only want the last ~6 months or so
+  ; ie: if we have 12 months, take the 6 most recent months
+  ; our data is stored from low to high in month order
+  ; so reverse list -> take 6 -> reverse that -> graph it
+  ; or drop (length - 6) from the list and graph it
+  (define graph
+    (discrete-histogram
+     (map (λ (m)
+            (vector (month-name m)
+                    (sum (map run-dist (month-datum m)))))
+          raw-data)
+     #:color 2
+     #:line-color 2))
+  (plot-file graph
+             fpath
+             'png
+             #:width GRAPH-WIDTH
+             #:height GRAPH-HEIGHT
+             #:title      "Monthly Total Distance Ran"
+             #:x-label    "months"
+             #:y-label    "distance (miles)"))
+
+
+(define (make-scatter-graph raw-data fpath)
+  (displayln "Creating scatterplot graph...")
+
+  (define runs (yank-all-run-data raw-data))
+  (define pairs
+    (map (λ (r)
+           (vector (run-dur r) (run-dist r)))
+         runs))
+
+  (define graph (points pairs
+                        #:color 3))
+
+  (plot-file graph
+             fpath
+             'png
+             #:width    GRAPH-WIDTH
+             #:height   GRAPH-HEIGHT
+             #:title    "Time vs. Distance"
+             #:x-label  "Time (seconds)"
+             #:y-label  "Distance (miles)"))
+
 
 ; end

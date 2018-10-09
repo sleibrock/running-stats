@@ -80,7 +80,17 @@ and portable across all other source files
     (if (empty? lst)
         acc
         (inner (cdr lst) (append acc `((,cnt ,(car lst)))) (+ cnt 1))))
-  (inner lst '() 100))
+  (inner lst '() 1))
+
+
+
+
+; Take and Drop functions for Racket (no racket/list import)
+(define (take n lst)
+  0)
+
+
+(define (drop n lst) 0)
     
   
 
