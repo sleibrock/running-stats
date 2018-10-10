@@ -17,6 +17,10 @@ and portable across all other source files
          avg
          avg-and-len
          enumerate
+         max
+         min
+         take
+         drop
          )
 
 
@@ -83,15 +87,30 @@ and portable across all other source files
   (inner lst '() 1))
 
 
-
-
 ; Take and Drop functions for Racket (no racket/list import)
 (define (take n lst)
-  0)
+  (define (inner n lst acc)
+    (if (or (empty? lst) (= n 0))
+        acc
+        (inner (sub1 n) (cdr lst) (append acc `(,(car lst))))))
+  (inner n lst '()))
 
 
-(define (drop n lst) 0)
-    
-  
+(define (drop n lst)
+  (if (or (empty? lst) (= n 0))
+      lst
+      (drop (sub1 n) (cdr lst))))
+
+
+; Higher-order function for generating max/min functions
+(define (list-comp op)
+  (λ (lst)
+    (if (empty? lst)
+        0
+        (foldr op (car lst) (cdr lst)))))
+
+(define max (list-comp (λ (a b) (if (< a b) b a))))
+(define min (list-comp (λ (a b) (if (< b a) b a))))
+
 
 ; end

@@ -85,7 +85,8 @@ Fit and data provided from gym equipment.
         (h2 "Monthly Total Distances")
         (center
          (img ((class "graph") (src ,MONTHLY-GRAPH))))
-        (p (sub (i "*Note: I only started on October 1st")))
+        (p (sub (i "*Note: I only started on October 1st so it may"
+                   "be a while before this fills out")))
 
         (h2 "Time vs. Distance")
         (center
@@ -152,7 +153,7 @@ Fit and data provided from gym equipment.
 ; execute this from the main program
 (define (build-pages-directory data)
 
-  (define line-graph-path (build-path HTML-DIRECTORY MAIN-GRAPH))
+  (define line-graph-path    (build-path HTML-DIRECTORY MAIN-GRAPH))
   (define monthly-graph-path (build-path HTML-DIRECTORY MONTHLY-GRAPH))
   (define scatter-graph-path (build-path HTML-DIRECTORY SCATTER-GRAPH))
   
