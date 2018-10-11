@@ -29,6 +29,7 @@ Record all your data in here underneath the DATA var
                (r 1.77   1140  "2018-10-07"    'mixed)
                (r 2.40   1260  "2018-10-08"  'outside)
                (r 2.38   1440  "2018-10-09"  'outside)
+               (r 0.71    600  "2018-10-10"  'outside)
                ))
 ;   (m "nov18" (list
 ;               (r 10.0   4000  "2018-11-01"      'gym)
