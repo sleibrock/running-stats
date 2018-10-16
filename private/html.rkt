@@ -6,6 +6,7 @@ Will build an index.html and fill a /public directory with files
 |#
 
 (require xml
+         "utils.rkt"
          "stats.rkt"
          )
 
@@ -166,8 +167,8 @@ Fit and data provided from gym equipment.
   ; set some parameters for the index template
   (TOTAL-RUNS      (number->string (stats-total-runs the-stats)))
   (TOTAL-DISTANCE  (number->string (stats-total-distance the-stats)))
-  (AVG-DISTANCE    (number->string (stats-avg-distance the-stats)))
-  (AVG-TIME        (number->string (stats-avg-time  the-stats)))
+  (AVG-DISTANCE    (number->string (round-to 2 (stats-avg-distance the-stats))))
+  (AVG-TIME        (number->string (round-to 2 (stats-avg-time  the-stats))))
   (AVG-PLACE       "not implemented")
   (STDEV           "0.0")
   (VARIANCE        "0.0")

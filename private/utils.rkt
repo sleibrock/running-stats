@@ -21,6 +21,7 @@ and portable across all other source files
          min
          take
          drop
+         round-to
          )
 
 
@@ -110,7 +111,17 @@ and portable across all other source files
         (foldr op (car lst) (cdr lst)))))
 
 (define max (list-comp (λ (a b) (if (< a b) b a))))
-(define min (list-comp (λ (a b) (if (< b a) b a))))
+(define min (list-comp (λ (a b) (if (< a b) a b))))
+
+
+
+; Used to round numbers to a certain place
+(define (round-to n-digits num)
+  (if (not (and (number? n-digits) (number? num)))
+      (error "Invalid arguments given to round-to")
+
+      (let ((v (expt 10 n-digits)))
+        (/ (truncate (* num v)) v))))
 
 
 ; end
