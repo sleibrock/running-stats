@@ -56,12 +56,12 @@ Fit and data provided from gym equipment.
   '((p "My schedule for each week is as follows:")
     (ul
      (li "Monday - run")
-     (li "Tuesday - run")
-     (li "Wednesday - rest day / minimal run")
-     (li "Thursday - run")
+     (li "Tuesday - rest / walking")
+     (li "Wednesday - run")
+     (li "Thursday - rest / walking")
      (li "Friday - run")
-     (li "Saturday - run")
-     (li "Sunday - rest day / minimal run"))
+     (li "Saturday - rest / walking")
+     (li "Sunday - run"))
     ))
 
 ; Create a template function that will return an xexpr tree when called
